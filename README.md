@@ -1,5 +1,5 @@
 # CyberMeme Trading Platform
-![CyberMeme Trading Platform](https://img.shields.io/badge/CyberMeme-Trading%20Platform-00FFFF?style=for-the-badge&logo=react)(https://stellar-raindrop-690ca3.netlify.app/)
+![CyberMeme Trading Platform](https://img.shields.io/badge/CyberMeme-Trading%20Platform-00FFFF?style=for-the-badge&logo=react)
 [CyberMeme Trading Platform link](https://stellar-raindrop-690ca3.netlify.app/)
 
 A futuristic web application for creating, sharing, and trading memes in a cyberpunk-themed environment. This platform combines social media features with trading mechanics, allowing users to upvote memes, place bids, and execute trades in real-time.

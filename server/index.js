@@ -175,7 +175,8 @@ app.get('/health', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 CyberMeme server running on port ${PORT}`);
   console.log(`💫 Socket.IO enabled for real-time features`);
+  console.log(`🌐 Server accepting connections on all interfaces`);
 });

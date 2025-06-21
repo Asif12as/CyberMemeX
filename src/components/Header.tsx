@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Image, Plus, TrendingUp, Zap, User, LogOut } from 'lucide-react';
+import { Terminal, Image, Plus, TrendingUp, Zap, User, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import AuthModal from './AuthModal';
 
@@ -12,6 +12,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
   const { user, profile, signOut, isAuthenticated, loading, authLoading } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'terminal', icon: Terminal, label: 'TERMINAL', color: 'text-cyber-blue' },
@@ -68,8 +69,24 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
               </h1>
             </motion.div>
 
-            {/* Navigation */}
-            <nav className="flex items-center space-x-6">
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <motion.button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-cyber-blue p-2"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6 text-cyber-pink" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </motion.button>
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-6">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 const isActive = currentView === item.id;
@@ -146,6 +163,43 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
         {/* Scanline effect */}
         <div className="scanline" />
       </header>
+
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <motion.div 
+          className="fixed inset-x-0 top-[72px] z-30 bg-black/95 border-b border-cyan-400/30 backdrop-blur-md md:hidden"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="container mx-auto px-4 py-2">
+            <div className="flex flex-col space-y-2">
+              {navItems.map((item) => {
+                const IconComponent = item.icon;
+                const isActive = currentView === item.id;
+                
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => {
+                      onNavigate(item.id as any);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center space-x-3 px-4 py-3 font-orbitron font-bold
+                      ${isActive ? item.color + ' neon-glow' : 'text-gray-400 hover:' + item.color}
+                      transition-all duration-300 relative border-b border-gray-800`}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <IconComponent className="w-5 h-5" />
+                    <span>{item.label}</span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       <AuthModal 
         isOpen={showAuthModal} 

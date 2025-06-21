@@ -79,13 +79,13 @@ The built files will be in the `dist` directory.
 
 ## 🌐 Deployment
 
-This project is set up for deployment on Vercel (frontend) and Render (backend). See the [DEPLOYMENT.md](./DEPLOYMENT.md) file for detailed instructions.
+This project is set up for deployment on Netlify or Vercel (frontend) and Render (backend). See the [DEPLOYMENT.md](./DEPLOYMENT.md) file for detailed instructions.
 
 ### Quick Deployment Steps
 
-1. **Frontend (Vercel)**:
+1. **Frontend (Netlify or Vercel)**:
    - Push your code to a Git repository
-   - Import your repository in Vercel
+   - Import your repository in Netlify or Vercel
    - Configure environment variables (Supabase URL, API URL, etc.)
 
 2. **Backend (Render)**:

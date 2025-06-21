@@ -1,20 +1,59 @@
 # Deployment Guide for Meme Trading Platform
 
-This guide will walk you through deploying your Meme Trading Platform using Vercel (frontend) and Render (backend).
+This guide will walk you through deploying your Meme Trading Platform using Netlify or Vercel (frontend) and Render (backend).
 
 ## Prerequisites
 
 1. Create accounts on:
-   - [Vercel](https://vercel.com/signup)
+   - [Netlify](https://app.netlify.com/signup) or [Vercel](https://vercel.com/signup)
    - [Render](https://render.com/register)
-2. Install Vercel CLI (optional for advanced usage):
+2. Install CLI tools (optional for advanced usage):
    ```
+   # For Vercel
    npm install -g vercel
+   
+   # For Netlify
+   npm install -g netlify-cli
    ```
 
-## Frontend Deployment (Vercel)
+## Frontend Deployment
 
-### Option 1: Using Vercel Dashboard (Recommended)
+### Option 1: Using Netlify
+
+#### Using Netlify Dashboard (Recommended)
+
+1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
+2. Log in to [Netlify Dashboard](https://app.netlify.com/)
+3. Click "New site from Git"
+4. Import your Git repository
+5. Configure project:
+   - Build Command: `npm run build`
+   - Publish Directory: `dist`
+6. Add Environment Variables (under Site settings > Build & deploy > Environment):
+   - `VITE_SUPABASE_URL`: Your Supabase URL
+   - `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+   - `VITE_API_URL`: Your backend API URL (from Render deployment)
+7. Click "Deploy site"
+
+#### Using Netlify CLI
+
+1. Navigate to your project directory
+2. Run:
+   ```
+   netlify login
+   netlify init
+   ```
+3. Follow the prompts to configure your project
+4. Set environment variables:
+   ```
+   netlify env:set VITE_SUPABASE_URL your-supabase-url
+   netlify env:set VITE_SUPABASE_ANON_KEY your-supabase-anon-key
+   netlify env:set VITE_API_URL your-backend-url
+   ```
+
+### Option 2: Using Vercel
+
+#### Using Vercel Dashboard
 
 1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
 2. Log in to [Vercel Dashboard](https://vercel.com/dashboard)
@@ -30,7 +69,7 @@ This guide will walk you through deploying your Meme Trading Platform using Verc
    - `VITE_API_URL`: Your backend API URL (from Render deployment)
 7. Click "Deploy"
 
-### Option 2: Using Vercel CLI
+#### Using Vercel CLI
 
 1. Navigate to your project directory
 2. Run:
@@ -71,7 +110,7 @@ This guide will walk you through deploying your Meme Trading Platform using Verc
 ## Connecting Frontend and Backend
 
 1. After deploying the backend, copy the Render service URL (e.g., `https://meme-platform-backend.onrender.com`)
-2. Add this URL as the `VITE_API_URL` environment variable in your Vercel project
+2. Add this URL as the `VITE_API_URL` environment variable in your Netlify or Vercel project
 3. Redeploy your frontend if necessary
 
 ## CORS Configuration
@@ -81,7 +120,7 @@ Ensure your backend server has CORS configured to accept requests from your fron
 ```javascript
 // In server/index.js
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://your-vercel-app.vercel.app',
+  origin: process.env.FRONTEND_URL || 'https://your-app-name.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -93,11 +132,15 @@ Make sure your Socket.IO connection in the frontend is pointing to the correct b
 
 ```typescript
 // In src/context/SocketContext.tsx
-const socket = io(import.meta.env.VITE_API_URL, {
+const backendUrl = import.meta.env.VITE_API_URL || 'https://meme-platform-backend.onrender.com';
+
+const socket = io(backendUrl, {
   transports: ['websocket'],
   autoConnect: true
 });
 ```
+
+This ensures your application will connect to the correct backend regardless of whether you're deploying to Netlify or Vercel.
 
 ## Troubleshooting
 
@@ -108,6 +151,7 @@ const socket = io(import.meta.env.VITE_API_URL, {
 
 ## Monitoring
 
+- Netlify: Dashboard > Your Site > Deploys
 - Vercel: Dashboard > Your Project > Deployments
 - Render: Dashboard > Your Service > Logs
 

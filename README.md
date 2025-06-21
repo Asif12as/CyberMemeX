@@ -4,6 +4,12 @@
 
 A futuristic web application for creating, sharing, and trading memes in a cyberpunk-themed environment. This platform combines social media features with trading mechanics, allowing users to upvote memes, place bids, and execute trades in real-time.
 
+![Login](login_meme.JPG)
+
+![Memes Gallery](gallery_meme.JPG)
+
+![Creatung memes](create_meme.JPG)
+
 ## 🚀 Features
 
 - **Real-time Trading**: Buy and sell memes using Socket.IO for instant updates

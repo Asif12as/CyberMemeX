@@ -18,7 +18,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   useEffect(() => {
     // Determine the backend URL based on environment
     const backendUrl = import.meta.env.MODE === 'production'
-      ? import.meta.env.VITE_BACKEND_URL || 'https://cybermeme-backend.onrender.com'
+      ? import.meta.env.VITE_BACKEND_URL || 'https://cybermemex-3.onrender.com'
       : 'http://localhost:3001';
     
     console.log('🔌 Connecting to Socket.IO server at:', backendUrl);

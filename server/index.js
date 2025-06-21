@@ -10,13 +10,13 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173", process.env.FRONTEND_URL || "https://cybermeme-trading-platform.vercel.app"],
+    origin: ["http://localhost:5173", process.env.FRONTEND_URL || "https://stellar-raindrop-690ca3.netlify.app/"],
     methods: ["GET", "POST"]
   }
 });
 
 app.use(cors({
-  origin: ["http://localhost:5173", process.env.FRONTEND_URL || "https://cybermeme-trading-platform.vercel.app"]
+  origin: ["http://localhost:5173", process.env.FRONTEND_URL || "https://stellar-raindrop-690ca3.netlify.app/"]
 }));
 app.use(express.json());
 
